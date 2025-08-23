@@ -1,8 +1,10 @@
 a=int(input("Enter a number"))
 b=int(input("Enter another number"))
-if(a>b):
+c=int(input("Enter another number"))
+if(a>b and a>c):
     print(f"{a} is the greatest")
-elif(a==b):
-    print("Numbers are equal")
+elif(b>c):
+    print(f"{b} is the greatest")
+
 else:
-    print(f"{b} is greatest")
+    print("{} is greatest".format(c))
