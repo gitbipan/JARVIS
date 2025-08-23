@@ -12,7 +12,39 @@ def speak(text):
     time.sleep(0.1)
 
 def process_command(c):
-    print("Command:", c)
+    c=c.lower() 
+    if "youtube" in c:
+        speak("Opening YouTube")
+        webbrowser.open("https://www.youtube.com")
+    elif "facebook" in c:
+        speak("Opening Facebook")
+        webbrowser.open("https://www.facebook.com")
+    elif "instagram" in c:
+        speak("Opening Instagram")
+        webbrowser.open("https://www.instagram.com")
+    elif "linkedin" in c:
+        speak("Opening LinkedIn")
+        webbrowser.open("https://www.linkedin.com")
+    elif "tiktok" in c:
+        speak("Opening TikTok")
+        webbrowser.open("https://www.tiktok.com")
+    elif "github" in c:
+        speak("Opening GitHub")
+        webbrowser.open("https://www.github.com")
+    elif "twitter" in c:
+        speak("Opening Twitter")
+        webbrowser.open("https://www.twitter.com")
+    elif "reddit" in c:
+        speak("Opening Reddit")
+        webbrowser.open("https://www.reddit.com")
+    elif "whatsapp" in c:
+        speak("Opening WhatsApp Web")
+        webbrowser.open("https://web.whatsapp.com")
+    elif "gmail" in c:
+        speak("Opening Gmail")
+        webbrowser.open("https://mail.google.com")
+    else:
+        speak("Website not recognized")
 
 if __name__ == "__main__":
     speak("Initializing Jarvis....")
@@ -33,8 +65,8 @@ if __name__ == "__main__":
                 with sr.Microphone() as source:
                     print("Jarvis Active...")
                     audio = recognizer.listen(source)
-                    command = recognizer.recognize_google(audio)
-                    process_command(command)
+                    c = recognizer.recognize_google(audio)
+                    process_command(c)
 
         except Exception as e:
             print("Error:", e)
