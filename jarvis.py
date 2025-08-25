@@ -2,14 +2,26 @@ import speech_recognition as sr
 import pyttsx3
 import time
 import webbrowser
+import musicLibrary
 
 recognizer = sr.Recognizer()
-eng = pyttsx3.init()
 
 def speak(text):
-    eng.say(text)
-    eng.runAndWait()
-    time.sleep(0.1)
+    try:
+        import win32com.client
+        speaker = win32com.client.Dispatch("SAPI.SpVoice")
+        speaker.Speak(text)
+    except Exception as e:
+        print(f"SAPI failed: {e}")
+        # Fallback to pyttsx3
+        try:
+            eng = pyttsx3.init()
+            eng.say(text)
+            eng.runAndWait()
+        except:
+            print("All TTS methods failed")
+
+# Rest of your code stays the same...
 
 def process_command(c):
     c=c.lower() 
@@ -43,6 +55,10 @@ def process_command(c):
     elif "gmail" in c:
         speak("Opening Gmail")
         webbrowser.open("https://mail.google.com")
+    elif c.lower().startswith("play"):
+        song=c.lower().split(" ")[1]
+        link= musicLibrary.music[song.lower()]
+        webbrowser.open(link)
     else:
         speak("Website not recognized")
 
@@ -61,7 +77,7 @@ if __name__ == "__main__":
 
             # Release the mic before speaking
             if word.lower() == "jarvis":
-                speak("Yaya")  # mic is free now
+                speak("Yess sir")  # mic is free now
                 with sr.Microphone() as source:
                     print("Jarvis Active...")
                     audio = recognizer.listen(source)
